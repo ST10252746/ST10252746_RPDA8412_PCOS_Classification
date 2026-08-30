@@ -1,0 +1,5 @@
+Feature,Q1,Q3,IQR,Lower Bound,Upper Bound,Flagged Count,Flagged %
+Age,24.0,36.0,12.0,6.0,54.0,0,0.0
+BMI,20.8,26.3,5.5,12.55,34.55,73,2.43
+Testosterone_Level(ng/dL),45.2,64.1,18.89999999999999,16.850000000000016,92.44999999999999,190,6.33
+Antral_Follicle_Count,5.0,11.0,6.0,-4.0,20.0,411,13.7
