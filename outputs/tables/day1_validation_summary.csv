@@ -1,0 +1,4 @@
+Dataset,Role,Rows,Columns,Missing Values,Duplicate Rows,Target Variable,Class 0 (No PCOS) %,Class 1 (PCOS) %,Object Columns
+Soares (2025),Primary training/test,3000,6,0,0,PCOS_Diagnosis,80.0,20.0,0
+Dalvi (2024),External validation,1000,6,0,0,PCOS_Diagnosis,80.1,19.9,0
+Moheddine (2022),SHAP interpretability,541,44,2,0,PCOS (Y/N),67.3,32.7,2
