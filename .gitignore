@@ -1,8 +1,14 @@
-# Python virtual environment
+# -------------------------------------------------------
+# .gitignore
+# ST10252746_RPDA8412_PCOS_Classification
+# -------------------------------------------------------
+
+# Python virtual environments
 venv/
 env/
 .env/
 .venv/
+pcos_env/
 
 # Python cache files
 __pycache__/
