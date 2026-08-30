@@ -1,0 +1,57 @@
+# Python virtual environment
+venv/
+env/
+.env/
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pycache
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Jupyter runtime files
+.jupyter/
+
+# Distribution and build folders
+dist/
+build/
+*.egg-info/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# VS Code settings
+.vscode/
+
+# Compiled Python files
+*.pyc
+
+# Log files
+*.log
+
+# Environment variable files
+.env
+*.env
+
+# Byte-compiled files
+*.pyo
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy type checker cache
+.mypy_cache/
+
+# Jupyter lab settings
+.jupyter_lab_config.py
+share/
