@@ -34,6 +34,26 @@ Menstrual_Irregularity.
 Reminder for me: Report this in the interpretability comparison.
 
 Day 6 findings to note:
-- SVM produces fewest Dalvi FPs (164) but highest FNs (31) - different
-  error profile from LR and RF; Dalvi AUC=0.9024 highest of three models to date
-- Note: No feature importance produced - SHAP KernelExplainer reserved for Day 9
+SVM GRID SEARCH: Best params C=0.1, gamma='scale', CV AUC=1.0000 (20.2s, 12 combinations).
+C=0.1 is the smallest value in the grid - the model preferred the widest margin.
+gamma='scale' adapts the kernel coefficient to training data variance.
+
+SVM TEST SET: Accuracy=0.9967, Recall=1.0000, ROC-AUC=1.0000 (TN=478, FP=2, FN=0, TP=120).
+Identical to LR on test set. All three traditional models saturated on Soares.
+
+SVM DALVI: Accuracy=0.8050, Recall=0.8442, ROC-AUC=0.9024 (TN=637, FP=164, FN=31, TP=168).
+
+SVM ERROR PROFILE vs LR and RF on Dalvi:
+- FP=164 (SVM) vs FP=374 (LR) vs FP=559 (RF) - SVM most conservative
+- FN=31 (SVM) vs FN=9 (LR) vs FN=9 (RF) - SVM misses most PCOS cases
+- SVM trades recall for precision on Dalvi due to C=0.1 wide-margin boundary
+- Clinically: FN=31 is the more concerning error - missed diagnoses
+
+SVM DALVI ROC-AUC=0.9024 is highest of three models to date (LR=0.8463, RF=0.8743).
+This means at adjusted thresholds, SVM orders positives and negatives better than LR/RF.
+Reminder for me: The default threshold result (FN=31) and the AUC result (best of three)
+tell different stories. Both must be reported and explained in the Findings chapter.
+
+FN PATTERN: LR and RF both produce FN=9 on Dalvi (same 9 records - to be verified).
+SVM produces FN=31 - a qualitatively different boundary, not a replication of LR/RF errors.
+No native feature importance for SVM. SHAP KernelExplainer applied in Day 9.
