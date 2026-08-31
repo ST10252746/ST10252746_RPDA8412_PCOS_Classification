@@ -32,3 +32,8 @@ Antral_Follicle_Count is first. This divergence is explained by
 Gini importance's sensitivity to the clean binary split on
 Menstrual_Irregularity. 
 Reminder for me: Report this in the interpretability comparison.
+
+Day 6 findings to note:
+- SVM produces fewest Dalvi FPs (164) but highest FNs (31) - different
+  error profile from LR and RF; Dalvi AUC=0.9024 highest of three models to date
+- Note: No feature importance produced - SHAP KernelExplainer reserved for Day 9
