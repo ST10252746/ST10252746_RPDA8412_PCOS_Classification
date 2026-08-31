@@ -18,3 +18,17 @@ Watch whether RF, SVM, and MLP show the same pattern on Dalvi.
 
 Addtional note: The odds ratios for Antral_Follicle_Count and Testosterone_Level are astronomically large (1.4 x 10^14 and 6.6 x 10^10). This is a known consequence of fitting LR with C=100 on near-perfectly separable data. The observation cell above addresses this directly. 
 Reminder for me: Do not report the raw odds ratio numbers in the research report without the above explanation.
+
+Day 5 findings to note:
+RF DALVI NOTE: Random Forest produces FP=559 on Dalvi vs LR FP=374.
+Both models produce identical FN=9. RF has higher Dalvi ROC-AUC
+(0.8743 vs 0.8463) but worse specificity at default threshold (0.3021
+vs 0.5331). Non-linear boundary with max_depth=None does not help
+generalisation on Dalvi - it worsens false positive rate.
+
+RANKING DIVERGENCE: RF ranks Menstrual_Irregularity second and
+Testosterone_Level third. LR ranks them in reverse order. Both agree
+Antral_Follicle_Count is first. This divergence is explained by
+Gini importance's sensitivity to the clean binary split on
+Menstrual_Irregularity. 
+Reminder for me: Report this in the interpretability comparison.
