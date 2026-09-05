@@ -118,3 +118,81 @@ model to Dalvi-range AFC and BMI values.
 
 Figure 17 (combined ROC) and Figure 18 (error profile bar chart) are
 the two primary figures for the Findings chapter comparison section.
+
+SHAP SOARES CROSS-METHOD RANKING TABLE (confirmed from figures):
+
+| Feature                | LR Coeff | RF Gini | SVM SHAP | MLP SHAP |
+|------------------------|----------|---------|----------|----------|
+| Antral_Follicle_Count  |    1     |    1    |    2     |    1     |
+| Menstrual_Irregularity |    3     |    2    |    1     |    2     |
+| Testosterone_Level     |    2     |    3    |    3     |    3     |
+| Age                    |    4     |    4    |    4     |    4     |
+| BMI                    |    5     |    5    |    5     |    5     |
+
+KEY FINDING: Three of four methods rank AFC first. SVM SHAP is the
+outlier - ranks Menstrual_Irregularity first (mean|SHAP|=0.2596 vs
+AFC=0.1440). Explained by RBF kernel sensitivity to binary feature
+structure. MLP SHAP agrees with LR and RF on AFC first
+(mean|SHAP|~0.300 vs Menstrual_Irregularity~0.113).
+Age and BMI rank last across all four methods without exception.
+Reminder for me: Report the SVM divergence explicitly in the
+Findings chapter interpretability section. Do not smooth it over.
+
+Feature mapping decisions:
+
+Soares Feature	Moheddine Proxy	Justification
+Age	' Age (yrs)'	Direct match
+BMI	'BMI'	Direct match
+Menstrual_Irregularity	'Cycle(R/I)'	Cycle regularity/irregularity - direct clinical equivalent. R=regular (2), I=irregular (4) in Moheddine encoding
+Testosterone_Level	'LH(mIU/mL)'	LH (Luteinising Hormone) is the closest available hormonal proxy. Elevated LH is a recognised hormonal marker in PCOS and is used in LH:FSH ratio diagnosis. No direct testosterone column exists in Moheddine
+Antral_Follicle_Count	'Follicle No. (L)'	Left ovary follicle count. Right ovary (Follicle No. (R)) is equally valid; left is selected for consistency. Limitation: Soares uses a single combined AFC value
+
+All three proxy substitutions are limitations that must be stated explicitly in the Findings chapter.
+
+
+Day 9:
+SHAP MOHEDDINE RESULTS (confirmed from figures and output):
+
+SVM MOHEDDINE RANKING:
+  1. Menstrual_Irregularity (Cycle(R/I))      : 0.004359
+  2. Antral_Follicle_Count (Follicle No. L)   : 0.000727
+  3. Age                                       : 0.000181
+  4. BMI                                       : 0.000168
+  5. Testosterone_Level (LH proxy)             : 0.000042
+
+MLP MOHEDDINE RANKING:
+  1. Menstrual_Irregularity (Cycle(R/I))      : 0.358597
+  2. Antral_Follicle_Count (Follicle No. L)   : 0.054357
+  3. Age                                       : 0.010019
+  4. Testosterone_Level (LH proxy)             : 0.006748
+  5. BMI                                       : 0.003113
+
+CRITICAL FINDING 1 - SVM SHAP COLLAPSE ON MOHEDDINE:
+SVM Moheddine SHAP axis spans only -0.003 to +0.010 vs Soares
+-0.50 to +0.30. The SVM model is not effectively discriminating
+Moheddine records. Wide-margin boundary (C=0.1) classifies most
+Moheddine records into a single probability region. This is
+consistent with SVM Dalvi FN=31 and confirms poor transfer to
+out-of-distribution data.
+Reminder for me: This is a strong finding for the Discussion chapter.
+The SVM's AUC advantage on Dalvi coexists with a near-collapsed SHAP
+signal on Moheddine. Both must be reported.
+
+CRITICAL FINDING 2 - MLP RANK SHIFT BETWEEN DATASETS:
+MLP Soares: AFC ranks 1st. MLP Moheddine: Menstrual_Irregularity
+ranks 1st. The MLP's internal feature weighting shifts with the
+input distribution. This is evidence that MLP attribution is not
+stable across datasets and should not be trusted for clinical
+interpretation without dataset-specific validation.
+Reminder for me: Do not overclaim - this finding is specific to
+these two datasets. State it as instability relative to the study
+scope only.
+
+STABLE FINDING ACROSS ALL METHODS: Top two features consistently
+Menstrual_Irregularity and Antral_Follicle_Count across all four
+models and both datasets. Order varies but both always rank above
+the remaining three features. This is the most defensible
+interpretability conclusion in the study.
+
+Note for me:
+On Final Day - do markdown check for correct structures!!!!

@@ -1,0 +1,6 @@
+Soares Feature,Moheddine Column,Mean |SHAP|
+Menstrual_Irregularity,Cycle(R/I),0.004359259504016101
+Antral_Follicle_Count,Follicle No. (L),0.0007274869499593252
+Age, Age (yrs),0.0001811664259333996
+BMI,BMI,0.0001677932056348075
+Testosterone_Level,LH(mIU/mL),4.1658756808971245e-05
