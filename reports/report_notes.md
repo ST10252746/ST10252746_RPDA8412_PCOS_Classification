@@ -86,3 +86,35 @@ performance gains in this study. This directly addresses the central
 research question.
 Reminder for me: State this carefully - the finding is specific to this
 dataset and study scope. Do not overclaim.
+
+Day 8 findings to note:
+COMPARATIVE TABLE CONFIRMED - all values verified from pipeline output.
+
+TEST SET SUMMARY: RF perfect (all metrics=1.0). LR, SVM, MLP identical
+(Accuracy=0.9967, FP=2, FN=0). Test set provides no basis for model
+differentiation. Do not use test set metrics to argue model superiority.
+
+DALVI SUMMARY (full metrics):
+  LR  : Acc=0.617, Prec=0.337, Rec=0.955, Spec=0.533, F1=0.498, AUC=0.8463, TN=427, FP=374, FN=9,  TP=190
+  RF  : Acc=0.432, Prec=0.254, Rec=0.955, Spec=0.302, F1=0.401, AUC=0.8743, TN=242, FP=559, FN=9,  TP=190
+  SVM : Acc=0.805, Prec=0.506, Rec=0.844, Spec=0.795, F1=0.633, AUC=0.9024, TN=637, FP=164, FN=31, TP=168
+  MLP : Acc=0.659, Prec=0.361, Rec=0.925, Spec=0.593, F1=0.519, AUC=0.8607, TN=475, FP=326, FN=15, TP=184
+
+DALVI AUC RANKING:    SVM (0.9024) > RF (0.8743) > MLP (0.8607) > LR (0.8463)
+DALVI FN RANKING:     LR=RF (9) < MLP (15) < SVM (31)
+DALVI FP RANKING:     SVM (164) < MLP (326) < LR (374) < RF (559)
+
+KEY FINDING: AUC ranking and FN ranking disagree. SVM ranks first on
+AUC but last on FN. LR and RF rank last on AUC but first on FN.
+This divergence between threshold-independent and threshold-dependent
+metrics is the central analytical tension for the Discussion chapter.
+Reminder for me: Frame this carefully - neither ranking is universally
+correct. The appropriate metric depends on clinical priorities.
+
+RF FALSE POSITIVE RATE on Dalvi = 559/801 = 69.8%. This is extreme and
+must be reported with full context: it reflects distributional shift,
+not model failure per se. The Soares training data did not expose the
+model to Dalvi-range AFC and BMI values.
+
+Figure 17 (combined ROC) and Figure 18 (error profile bar chart) are
+the two primary figures for the Findings chapter comparison section.
