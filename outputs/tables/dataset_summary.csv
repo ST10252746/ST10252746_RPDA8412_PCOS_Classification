@@ -1,0 +1,4 @@
+Dataset,Records,Features,Target Variable,No PCOS (%),PCOS (%),Missing Values,Licence,Role
+Soares (2025),3000,5,PCOS_Diagnosis,80.0,20.0,0,MIT,Primary training/testing
+Dalvi (2024),1000,5,PCOS_Diagnosis,80.1,19.9,0,CC0 1.0,External validation
+Moheddine (2022),541,43,PCOS (Y/N),67.3,32.7,0,Unknown - full attribution applied,Supplementary SHAP interpretability
