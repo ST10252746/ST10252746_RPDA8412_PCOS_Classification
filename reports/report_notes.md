@@ -57,3 +57,32 @@ tell different stories. Both must be reported and explained in the Findings chap
 FN PATTERN: LR and RF both produce FN=9 on Dalvi (same 9 records - to be verified).
 SVM produces FN=31 - a qualitatively different boundary, not a replication of LR/RF errors.
 No native feature importance for SVM. SHAP KernelExplainer applied in Day 9.
+
+Day 7 findings to note:
+MLP GRID SEARCH: Best params hidden_layer_sizes=(128, 64), alpha=0.0001,
+learning_rate_init=0.01. CV AUC=1.0000. Completed in 6.8 seconds, 14 epochs
+(early stopping). Smallest regularisation and largest architecture preferred -
+consistent with clean Soares separability, not a general finding.
+
+MLP TEST SET: Accuracy=0.9967, Recall=1.0000, ROC-AUC=1.0000
+(TN=478, FP=2, FN=0, TP=120). Identical to LR and SVM. All four models
+saturated on Soares test set.
+
+MLP DALVI: Accuracy=0.6590, Recall=0.9246, ROC-AUC=0.8607
+(TN=475, FP=326, FN=15, TP=184).
+
+DALVI AUC RANKING (final): SVM (0.9024) > RF (0.8743) > MLP (0.8607) > LR (0.8463)
+
+MLP ERROR PROFILE vs all models on Dalvi:
+- FP=326 (MLP) vs FP=164 (SVM) vs FP=374 (LR) vs FP=559 (RF)
+- FN=15 (MLP) vs FN=31 (SVM) vs FN=9 (LR) vs FN=9 (RF)
+- MLP sits between SVM and LR/RF on the recall-precision trade-off
+- Worst combined error profile for clinical screening: more FNs than LR/RF,
+  more FPs than SVM
+
+KEY FINDING FOR DISCUSSION: MLP does not outperform traditional models on
+Dalvi AUC, ranks third. Neural network complexity is not justified by
+performance gains in this study. This directly addresses the central
+research question.
+Reminder for me: State this carefully - the finding is specific to this
+dataset and study scope. Do not overclaim.
