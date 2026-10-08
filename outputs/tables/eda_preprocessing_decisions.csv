@@ -1,11 +1,11 @@
 Preprocessing Step,EDA Evidence,Decision
-Missing value handling — Soares,Day 1 validation: 0 missing values confirmed,No action required
-Missing value handling — Dalvi,Day 1 validation: 0 missing values confirmed,No action required
-Missing value handling — Moheddine,"Day 1 validation: 2 missing values (Marraige Status, Fast food)",Median imputation for Marraige Status; mode imputation for Fast food (Y/N)
-Duplicate removal — all datasets,Day 1 validation: 0 duplicates in all three datasets,No action required
-Outlier treatment — Soares,IQR method: flagged values within clinically plausible ranges,Retain all records — no removal justified
+Missing value handling - Soares,Day 1 validation: 0 missing values confirmed,No action required
+Missing value handling - Dalvi,Day 1 validation: 0 missing values confirmed,No action required
+Missing value handling - Moheddine,"Day 1 validation: 2 missing values (Marraige Status, Fast food)",Median imputation for Marraige Status; mode imputation for Fast food (Y/N)
+Duplicate removal - all datasets,Day 1 validation: 0 duplicates in all three datasets,No action required
+Outlier treatment - Soares,IQR method: flagged values within clinically plausible ranges,Retain all records - no removal justified
 Feature scaling method,Continuous features have different units and ranges; no extreme outliers,MinMaxScaler applied to all five features
 Scaler fitting strategy,Scaler fitted on training set only to prevent data leakage,"Fit on Soares training set; apply to test set, Dalvi, and Moheddine"
 Binary feature treatment,Menstrual_Irregularity is binary (0/1); already in MinMaxScaler output range,Scale alongside continuous features; values remain 0 or 1 after MinMaxScaling
-Class imbalance handling,Soares target: 80% No PCOS / 20% PCOS — confirmed by Day 1 and Figure 1,"SMOTE applied to training set only, after stratified 80/20 split"
+Class imbalance handling,Soares target: 80% No PCOS / 20% PCOS - confirmed by Day 1 and Figure 1,"SMOTE applied to training set only, after stratified 80/20 split"
 Moheddine object column conversion,AMH and II beta-HCG stored as strings; sample values confirm numeric content,"Convert to float64 using pd.to_numeric() with errors=""coerce"""
