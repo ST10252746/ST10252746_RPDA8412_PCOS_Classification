@@ -1,0 +1,3 @@
+7bf1ee6c94bf5ab70f856ec6add2e6be055ef7a4f28c10d07d3212ddc1c6b721 *data/soares_pcos.csv
+09c8224b43cdc47e31723906b66cae88c9327befd65d36c216b201131eb0aa71 *data/dalvi_pcos.csv
+b35d13e5e11bb9f4810aba949ee86aaa2ab134bab4456111035752b3cd658ed1 *data/moheddine_pcos.csv
