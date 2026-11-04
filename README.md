@@ -25,7 +25,6 @@ The study compares three traditional models (Logistic Regression, Random Forest 
 | **Author** | Theshara Narain (ST10252746) |
 | **Supervisor** | Dr Janine Upton |
 | **Programme** | Postgraduate Diploma in Data Analytics, The IIE |
-| **Final revision** | `d1c07e0f1d5324531b19ea488e8a5ca76edf8436` |
 
 > **Important:** the outputs of this project describe model behaviour on secondary data, two of three datasets being synthetic. They must not be used for diagnosis or for any clinical decision.
 
