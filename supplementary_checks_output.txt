@@ -1,0 +1,49 @@
+0. REPRODUCTION OF THE NOTEBOOK (Dalvi ROC-AUC; TN FP FN TP from predict())
+   LR   AUC 0.8662  473 328 12 187  Soares test AUC 1.00000
+   RF   AUC 0.8743  242 559 9 190  Soares test AUC 1.00000
+   SVM  AUC 0.9024  637 164 31 168  Soares test AUC 1.00000
+   MLP  AUC 0.8908  551 250 13 186  Soares test AUC 0.99998
+
+1. PAIRED DELONG TESTS ON DALVI (difference = first model minus second)
+   MLP - LR: +0.0246 (95% CI +0.0169 to +0.0322) p < 0.0001  Holm-adjusted (MLP family of 3) < 0.0001
+   MLP - RF: +0.0165 (95% CI -0.0068 to +0.0397) p = 0.1653  Holm-adjusted (MLP family of 3) = 0.1653
+   MLP - SVM: -0.0116 (95% CI -0.0208 to -0.0025) p = 0.0125  Holm-adjusted (MLP family of 3) = 0.0249
+   SVM - LR: +0.0362 (95% CI +0.0227 to +0.0497) p < 0.0001
+   SVM - RF: +0.0281 (95% CI +0.0070 to +0.0492) p = 0.0091
+   RF - LR: +0.0081 (95% CI -0.0177 to +0.0340) p = 0.5385
+   bootstrap 95% interval for MLP minus model: {'LR': (0.0173, 0.0329), 'RF': (-0.0054, 0.0399), 'SVM': (-0.0208, -0.0026)}
+
+2. DECISION RULE: predict() compared with predict_proba >= 0.5 (TN FP FN TP)
+   LR   Soares test predict [478, 2, 0, 120]  p>=0.5 [478, 2, 0, 120]  disagree 0
+   LR   Dalvi       predict [473, 328, 12, 187]  p>=0.5 [473, 328, 12, 187]  disagree 0
+   RF   Soares test predict [480, 0, 0, 120]  p>=0.5 [480, 0, 0, 120]  disagree 0
+   RF   Dalvi       predict [242, 559, 9, 190]  p>=0.5 [237, 564, 9, 190]  disagree 5
+   SVM  Soares test predict [478, 2, 0, 120]  p>=0.5 [478, 2, 0, 120]  disagree 0
+   SVM  Dalvi       predict [637, 164, 31, 168]  p>=0.5 [646, 155, 32, 167]  disagree 10
+   MLP  Soares test predict [475, 5, 0, 120]  p>=0.5 [475, 5, 0, 120]  disagree 0
+   MLP  Dalvi       predict [551, 250, 13, 186]  p>=0.5 [551, 250, 13, 186]  disagree 0
+
+3. TUNING: scaler fitted before the folds (notebook design) against scaler inside each fold
+   LR   before best {'clf__C': 10, 'clf__class_weight': None} mean CV AUC 1.0000000 sd 0.0000000 combos tied at the maximum 4 of 12 lowest 0.9999620 | Dalvi AUC 0.8662 FP 328 FN 12
+   LR   inside best {'clf__C': 10, 'clf__class_weight': None} mean CV AUC 1.0000000 sd 0.0000000 combos tied at the maximum 4 of 12 lowest 0.9999620 | Dalvi AUC 0.8662 FP 328 FN 12
+   RF   before best {'clf__max_depth': None, 'clf__min_samples_leaf': 1, 'clf__n_estimators': 100} mean CV AUC 1.0000000 sd 0.0000000 combos tied at the maximum 27 of 27 lowest 1.0000000 | Dalvi AUC 0.8743 FP 559 FN 9
+   RF   inside best {'clf__max_depth': None, 'clf__min_samples_leaf': 1, 'clf__n_estimators': 100} mean CV AUC 1.0000000 sd 0.0000000 combos tied at the maximum 27 of 27 lowest 1.0000000 | Dalvi AUC 0.8743 FP 559 FN 9
+   SVM  before best {'clf__C': 0.1, 'clf__gamma': 'scale'} mean CV AUC 1.0000000 sd 0.0000000 combos tied at the maximum 5 of 12 lowest 0.9999891 | Dalvi AUC 0.9024 FP 164 FN 31
+   SVM  inside best {'clf__C': 0.1, 'clf__gamma': 'scale'} mean CV AUC 1.0000000 sd 0.0000000 combos tied at the maximum 5 of 12 lowest 0.9999891 | Dalvi AUC 0.9024 FP 164 FN 31
+   MLP  before best {'clf__alpha': 0.0001, 'clf__hidden_layer_sizes': (64, 32), 'clf__learning_rate_init': 0.01} mean CV AUC 0.9999946 sd 0.0000109 combos tied at the maximum 4 of 12 lowest 0.9998861 | Dalvi AUC 0.8908 FP 250 FN 13
+   MLP  inside best {'clf__alpha': 0.0001, 'clf__hidden_layer_sizes': (64, 32), 'clf__learning_rate_init': 0.01} mean CV AUC 0.9999946 sd 0.0000109 combos tied at the maximum 4 of 12 lowest 0.9998915 | Dalvi AUC 0.8908 FP 250 FN 13
+   MLP final fit: stopped after 14 iterations, best internal validation accuracy 1.0000, 2497 weights and biases
+
+4. WITHOUT SMOTE (same tuned settings, not re-tuned): Dalvi AUC, FP, FN
+   LR   AUC 0.8737 FP 256 FN 23
+   RF   AUC 0.8787 FP 568 FN 9
+   SVM  AUC 0.9006 FP 135 FN 40
+   MLP  AUC 0.8908 FP 286 FN 12
+
+5. SHAP KERNELEXPLAINER (SVM and MLP; positive class; probability units)
+   SVM Soares test balanced (SMOTE) background    expected value 0.5006 max additivity error 1.7e-16 mean|SHAP| Menstrual_Irregularity 0.2596, Antral_Follicle_Count 0.1440, Testosterone_Level 0.0763, Age 0.0195, BMI 0.0053
+   SVM Dalvi       balanced (SMOTE) background    expected value 0.5006 max additivity error 1.9e-16 mean|SHAP| Menstrual_Irregularity 0.2752, Antral_Follicle_Count 0.1088, Testosterone_Level 0.1025, Age 0.0579, BMI 0.0088
+   SVM Soares test original-training background   expected value 0.1990 max additivity error 3.3e-16 mean|SHAP| Menstrual_Irregularity 0.1676, Antral_Follicle_Count 0.0921, Testosterone_Level 0.0496, Age 0.0123, BMI 0.0037
+   MLP Soares test balanced (SMOTE) background    expected value 0.5036 max additivity error 2.2e-16 mean|SHAP| Menstrual_Irregularity 0.2079, Antral_Follicle_Count 0.1947, Testosterone_Level 0.0843, Age 0.0252, BMI 0.0008
+   MLP Dalvi       balanced (SMOTE) background    expected value 0.5036 max additivity error 5.0e-16 mean|SHAP| Menstrual_Irregularity 0.2532, Antral_Follicle_Count 0.1474, Testosterone_Level 0.0934, Age 0.0424, BMI 0.0019
+   MLP Soares test original-training background   expected value 0.2073 max additivity error 2.2e-16 mean|SHAP| Menstrual_Irregularity 0.1418, Antral_Follicle_Count 0.1256, Testosterone_Level 0.0564, Age 0.0190, BMI 0.0007
